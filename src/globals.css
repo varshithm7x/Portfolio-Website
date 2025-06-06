@@ -57,9 +57,7 @@ body {
 }
 
 html {
-  scroll-behavior: smooth;
   scroll-padding-top: 2rem;
-  -webkit-overflow-scrolling: touch; /* iOS momentum scrolling */
   scrollbar-gutter: stable;
 }
 
@@ -81,13 +79,7 @@ html {
   background: hsl(var(--accent-foreground));
 }
 
-/* Enhanced smooth scrolling for all elements */
-* {
-  scroll-behavior: smooth;
-  transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-}
+/* Remove smooth scrolling styles */
 
 /* Terminal-like font for code elements */
 code, pre {
@@ -112,8 +104,6 @@ body {
   transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   zoom: 90%;
   min-height: 100vh;
-  overscroll-behavior: smooth;
-  scroll-behavior: smooth;
 }
 
 /* Keep bottom navbar at normal size */
@@ -161,10 +151,7 @@ button {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Enhanced smooth scrolling for links */
-a[href^="#"] {
-  scroll-behavior: smooth;
-}
+/* Remove smooth scrolling for links */
 
 /* Will-change for better performance on animated elements */
 .animated-element {
