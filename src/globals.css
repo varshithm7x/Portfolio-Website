@@ -58,6 +58,9 @@ body {
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 2rem;
+  -webkit-overflow-scrolling: touch; /* iOS momentum scrolling */
+  scrollbar-gutter: stable;
 }
 
 /* Custom scrollbar */
@@ -78,9 +81,12 @@ html {
   background: hsl(var(--accent-foreground));
 }
 
-/* Smooth scrolling for all elements */
+/* Enhanced smooth scrolling for all elements */
 * {
   scroll-behavior: smooth;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }
 
 /* Terminal-like font for code elements */
@@ -103,9 +109,11 @@ html:not(.dark) {
 
 body {
   font-family: 'JetBrains Mono', monospace;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   zoom: 90%;
   min-height: 100vh;
+  overscroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 /* Keep bottom navbar at normal size */
@@ -141,9 +149,26 @@ button {
   background-size: 20px 20px;
 }
 
-/* Hover effects */
+/* Hover effects with smooth transitions */
 .hover-glow:hover {
   box-shadow: 0 0 30px rgba(59, 130, 246, 0.4);
   transform: translateY(-2px);
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Smooth page transitions */
+.page-transition {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Enhanced smooth scrolling for links */
+a[href^="#"] {
+  scroll-behavior: smooth;
+}
+
+/* Will-change for better performance on animated elements */
+.animated-element {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
