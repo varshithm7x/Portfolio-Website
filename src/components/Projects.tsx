@@ -34,15 +34,14 @@ export default function Projects() {  const projects = [
               <div className="flex flex-col md:flex-row md:items-center md:justify-between">
                 <div className="flex-1">                  <h3 className="text-lg font-bold mb-2 text-black dark:text-white transition-colors duration-300">
                     {project.title}
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400 mb-3 transition-colors duration-300 text-sm">
+                  </h3>                  <p className="text-gray-600 dark:text-gray-400 mb-3 transition-colors duration-300 text-base">
                     {project.description}
                   </p>                  <div className="flex items-center gap-2 flex-wrap">
-                    <div className="text-xs text-blue-600 dark:text-blue-400 font-mono">
+                    <div className="text-sm text-blue-600 dark:text-blue-400 font-mono">
                       {project.tech}
                     </div>
                     {project.status && (
-                      <div className="text-xs bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-400 px-2 py-1 rounded">
+                      <div className="text-sm bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-400 px-2 py-1 rounded">
                         {project.status}
                       </div>
                     )}
@@ -53,7 +52,7 @@ export default function Projects() {  const projects = [
                     href={project.github} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="text-black dark:text-white hover:text-gray-600 dark:hover:text-gray-300 inline-block transition-colors duration-300 border border-gray-300 dark:border-white/20 px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-white/10 text-xs"
+                    className="text-black dark:text-white hover:text-gray-600 dark:hover:text-gray-300 inline-block transition-colors duration-300 border border-gray-300 dark:border-white/20 px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-white/10 text-sm"
                   >
                     View on GitHub →
                   </a>

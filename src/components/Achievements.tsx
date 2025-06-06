@@ -43,16 +43,14 @@ export default function Achievements() {
                   <h4 className="text-md font-semibold mb-2 text-black dark:text-white transition-colors duration-300">
                     {achievement.project}
                   </h4>
-                  
-                  <p className="text-gray-600 dark:text-gray-400 mb-3 transition-colors duration-300 text-sm">
+                    <p className="text-gray-600 dark:text-gray-400 mb-3 transition-colors duration-300 text-base">
                     {achievement.description}
                   </p>
                   
                   <div className="flex items-center gap-4 flex-wrap">
-                    <div className="text-xs text-blue-600 dark:text-blue-400 font-mono">
+                    <div className="text-sm text-blue-600 dark:text-blue-400 font-mono">
                       {achievement.tech}
-                    </div>
-                    <div className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
+                    </div>                    <div className="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400">
                       <Calendar className="w-3 h-3" />
                       {achievement.date}
                     </div>
@@ -64,7 +62,7 @@ export default function Achievements() {
                     href={achievement.link} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="text-black dark:text-white hover:text-gray-600 dark:hover:text-gray-300 inline-block transition-colors duration-300 border border-gray-300 dark:border-white/20 px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-white/10 text-xs"
+                    className="text-black dark:text-white hover:text-gray-600 dark:hover:text-gray-300 inline-block transition-colors duration-300 border border-gray-300 dark:border-white/20 px-4 py-2 rounded hover:bg-gray-100 dark:hover:bg-white/10 text-sm"
                   >
                     View Project →
                   </a>

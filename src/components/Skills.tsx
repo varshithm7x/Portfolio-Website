@@ -67,11 +67,10 @@ export default function Skills() {
               </h3>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                 {category.skills.map((skill, skillIndex) => (
-                  <div key={skillIndex} className="flex flex-col">
-                    <span className="text-sm text-black dark:text-white transition-colors duration-300">
+                  <div key={skillIndex} className="flex flex-col">                    <span className="text-base text-black dark:text-white transition-colors duration-300">
                       {skill.name}
                     </span>
-                    <span className={`text-xs font-mono ${getLevelColor(skill.level)} transition-colors duration-300`}>
+                    <span className={`text-sm font-mono ${getLevelColor(skill.level)} transition-colors duration-300`}>
                       {skill.level}
                     </span>
                   </div>
