@@ -5,7 +5,7 @@ export default function About() {  return (
       <div className="max-w-4xl mx-auto">        <h2 className="text-2xl font-bold mb-4 text-black dark:text-white transition-colors duration-300">
           About Me
         </h2>        <p className="text-gray-600 dark:text-gray-300 mb-5 transition-colors duration-300 leading-relaxed text-sm">
-          Hi! I'm an 18-year-old student, developer, and tech enthusiast with a deep curiosity for how tech—especially AI and 3D—can shape the future. I love turning creative ideas into real, working projects.
+          Hi! I'm an 18-year-old student, developer, and tech enthusiast with a deep curiosity for how tech especially AI and 3D can shape the future. I love turning creative ideas into real, working projects.
         </p>
         
         <p className="text-gray-600 dark:text-gray-300 mb-5 transition-colors duration-300 leading-relaxed text-sm">
