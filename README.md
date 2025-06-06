@@ -26,6 +26,7 @@ A modern, minimalist portfolio website showcasing my projects and skills in AI, 
 - **About**: Personal background and interests
 - **Skills**: Technical skills and areas of expertise
 - **Projects**: Showcase of key projects including CadGPT, CVSorter, and MathBox
+- **Achievements**: Awards and recognitions from hackathons and competitions
 - **Contact**: Social media links and contact information
 
 ## Local Development
@@ -62,6 +63,10 @@ src/
 1. **CadGPT** - AI-powered CAD design assistant (Building)
 2. **CVSorter** - Automated CV sorting and ranking system
 3. **MathBox** - Interactive mathematics learning platform (Building)
+
+## Achievements
+
+- **HACKHAZARDS '25** - 2nd Prize in Monad Track for Ball-Maze with NFT Integration
 
 ## Contact
 
