@@ -14,10 +14,9 @@ export default function Achievements() {
       tech: "Three.js, Solidity, MetaMask, Monad"
     }
   ]
-
   return (
-    <section id="achievements" className="py-8 px-6 bg-white dark:bg-black transition-colors duration-300">
-      <div className="max-w-4xl mx-auto">        <h2 className="text-2xl font-bold mb-6 text-black dark:text-white transition-colors duration-300 flex items-center gap-2">
+    <section id="achievements" className="py-4 px-6 bg-white dark:bg-black transition-colors duration-300">
+      <div className="max-w-4xl mx-auto"><h2 className="text-2xl font-bold mb-6 text-black dark:text-white transition-colors duration-300 flex items-center gap-2">
           Achievements 
           <Trophy className="w-6 h-6 text-yellow-500" />
         </h2>

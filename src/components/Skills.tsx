@@ -51,23 +51,21 @@ export default function Skills() {
         return "text-gray-600 dark:text-gray-400"
     }
   }
-
   return (
-    <section id="skills" className="py-8 px-6 bg-white dark:bg-black transition-colors duration-300">
+    <section id="skills" className="py-4 px-6 bg-white dark:bg-black transition-colors duration-300">
       <div className="max-w-4xl mx-auto">
         <h2 className="text-2xl font-bold mb-6 text-black dark:text-white transition-colors duration-300">
           Skills
         </h2>
-        
-        <div className="space-y-6">
+          <div className="space-y-6">
           {skillCategories.map((category, categoryIndex) => (
-            <div key={categoryIndex} className="border border-gray-200 dark:border-white/10 p-5 rounded-lg bg-white dark:bg-transparent transition-colors duration-300">
-              <h3 className="text-lg font-bold mb-4 text-black dark:text-white transition-colors duration-300">
+            <div key={categoryIndex} className="space-y-3">              <h3 className="text-lg font-bold text-black dark:text-white transition-colors duration-300">
                 {category.category}
               </h3>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+              <div className="flex flex-wrap gap-3">
                 {category.skills.map((skill, skillIndex) => (
-                  <div key={skillIndex} className="flex flex-col">                    <span className="text-base text-black dark:text-white transition-colors duration-300">
+                  <div key={skillIndex} className="border border-gray-200 dark:border-white/10 p-3 rounded-lg bg-white dark:bg-transparent transition-colors duration-300 hover:bg-gray-50 dark:hover:bg-white/5 w-fit">
+                    <span className="text-base text-black dark:text-white transition-colors duration-300 block whitespace-nowrap">
                       {skill.name}
                     </span>
                     <span className={`text-sm font-mono ${getLevelColor(skill.level)} transition-colors duration-300`}>

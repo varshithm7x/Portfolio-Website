@@ -1,10 +1,10 @@
 import '../globals.css'
-import { JetBrains_Mono } from 'next/font/google'
+import { Inter } from 'next/font/google'
 import { ThemeProvider } from '../context/ThemeContext'
 
-const jetbrainsMono = JetBrains_Mono({ 
+const inter = Inter({ 
   subsets: ['latin'],
-  weight: ['400', '500', '700'] 
+  weight: ['400', '500', '600', '700'] 
 })
 
 export const metadata = {
@@ -18,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">      <body className={`${jetbrainsMono.className} overflow-x-hidden transition-colors duration-300`}>
+    <html lang="en">      <body className={`${inter.className} overflow-x-hidden transition-colors duration-300`}>
         <ThemeProvider>
           <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white transition-colors duration-300">
             {children}

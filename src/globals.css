@@ -61,22 +61,19 @@ html {
   scrollbar-gutter: stable;
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar - hidden */
 ::-webkit-scrollbar {
-  width: 8px;
+  display: none;
 }
 
-::-webkit-scrollbar-track {
-  background: hsl(var(--background));
+/* Hide scrollbar for Firefox */
+html {
+  scrollbar-width: none;
 }
 
-::-webkit-scrollbar-thumb {
-  background: hsl(var(--muted-foreground));
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--accent-foreground));
+/* Hide scrollbar for IE and Edge */
+body {
+  -ms-overflow-style: none;
 }
 
 /* Remove smooth scrolling styles */
@@ -100,7 +97,6 @@ html:not(.dark) {
 }
 
 body {
-  font-family: 'JetBrains Mono', monospace;
   transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   zoom: 90%;
   min-height: 100vh;
@@ -125,10 +121,6 @@ body.dark {
 
 h1, h2, h3 {
   font-weight: 700;
-}
-
-button {
-  font-family: 'JetBrains Mono', monospace;
 }
 
 /* Matrix-like grid background */

@@ -23,7 +23,7 @@ export default function Projects() {  const projects = [
     },
   ]
   return (
-    <section id="projects" className="py-8 px-6 bg-white dark:bg-black transition-colors duration-300">
+    <section id="projects" className="py-4 px-6 bg-white dark:bg-black transition-colors duration-300">
       <div className="max-w-4xl mx-auto">        <h2 className="text-2xl font-bold mb-6 text-black dark:text-white transition-colors duration-300">
           Projects
         </h2>
