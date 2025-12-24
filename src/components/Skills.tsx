@@ -9,7 +9,7 @@ export default function Skills() {
         { name: "TypeScript" },
         { name: "JavaScript" },
         { name: "C" },
-        { name: "Kotlin" },
+        { name: "C++" },
         { name: "CSS" }
       ]
     },
@@ -29,7 +29,6 @@ export default function Skills() {
       skills: [
         { name: "Artificial Intelligence" },
         { name: "3D Technologies" },
-        { name: "Mobile Development" },
         { name: "Web Development" },
         { name: "Data Processing" },
         { name: "Voice Assistants" }
