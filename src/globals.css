@@ -79,7 +79,8 @@ body {
 /* Remove smooth scrolling styles */
 
 /* Terminal-like font for code elements */
-code, pre {
+code,
+pre {
   font-family: 'JetBrains Mono', 'Fira Code', monospace;
 }
 
@@ -104,7 +105,8 @@ body {
 
 /* Keep bottom navbar at normal size */
 #contact {
-  zoom: 111.11%; /* 1 / 0.9 to counteract body zoom */
+  zoom: 111.11%;
+  /* 1 / 0.9 to counteract body zoom */
 }
 
 /* Light theme specific styles */
@@ -119,13 +121,15 @@ body.dark {
   color: #ffffff;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-weight: 700;
 }
 
 /* Matrix-like grid background */
 .matrix-bg {
-  background-image: 
+  background-image:
     linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
     linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
   background-size: 20px 20px;
