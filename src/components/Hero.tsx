@@ -16,7 +16,6 @@ export default function Hero() {
             <div 
                className="relative w-24 h-24 md:w-28 md:h-28 flex-shrink-0"
             >
-              <div className="absolute inset-0 bg-neutral-200 dark:bg-neutral-800 rounded-2xl blur-xl opacity-50 animate-pulse"></div>
               <Image
                 src="/images/profile.jpeg"
                 alt="Varshith"

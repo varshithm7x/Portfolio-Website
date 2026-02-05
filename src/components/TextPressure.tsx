@@ -1,26 +1,6 @@
-"use client"
+// Component ported from https://codepen.io/JuanFuentes/full/rgXKGQ
+
 import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
-
-const dist = (a: { x: number; y: number }, b: { x: number; y: number }) => {
-  const dx = b.x - a.x;
-  const dy = b.y - a.y;
-  return Math.sqrt(dx * dx + dy * dy);
-};
-
-const getAttr = (distance: number, maxDist: number, minVal: number, maxVal: number) => {
-  const val = maxVal - Math.abs((maxVal * distance) / maxDist);
-  return Math.max(minVal, val + minVal);
-};
-
-const debounce = (func: (...args: any[]) => void, delay: number) => {
-  let timeoutId: NodeJS.Timeout;
-  return (...args: any[]) => {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => {
-      func.apply(null, args);
-    }, delay);
-  };
-};
 
 interface TextPressureProps {
   text?: string;
@@ -35,39 +15,55 @@ interface TextPressureProps {
   scale?: boolean;
   textColor?: string;
   strokeColor?: string;
+  strokeWidth?: number;
   className?: string;
   minFontSize?: number;
 }
+
+const dist = (a: { x: number; y: number }, b: { x: number; y: number }) => {
+  const dx = b.x - a.x;
+  const dy = b.y - a.y;
+  return Math.sqrt(dx * dx + dy * dy);
+};
+
+const getAttr = (distance: number, maxDist: number, minVal: number, maxVal: number) => {
+  const val = maxVal - Math.abs((maxVal * distance) / maxDist);
+  return Math.max(minVal, val + minVal);
+};
+
+const debounce = (func: (...args: any[]) => void, delay: number) => {
+  let timeoutId: ReturnType<typeof setTimeout>;
+  return (...args: any[]) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      func.apply(null, args);
+    }, delay);
+  };
+};
 
 const TextPressure: React.FC<TextPressureProps> = ({
   text = 'Compressa',
   fontFamily = 'Compressa VF',
   fontUrl = 'https://res.cloudinary.com/dr6lvwubh/raw/upload/v1529908256/CompressaPRO-GX.woff2',
-
   width = true,
   weight = true,
   italic = true,
   alpha = false,
-
   flex = true,
   stroke = false,
   scale = false,
-
   textColor = '#FFFFFF',
   strokeColor = '#FF0000',
+  strokeWidth = 2,
   className = '',
-
   minFontSize = 24
 }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const titleRef = useRef<HTMLHeadingElement>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const titleRef = useRef<HTMLHeadingElement | null>(null);
   const spansRef = useRef<(HTMLSpanElement | null)[]>([]);
 
   const mouseRef = useRef({ x: 0, y: 0 });
   const cursorRef = useRef({ x: 0, y: 0 });
-  
-  // Cache title width to avoid repeated getBoundingClientRect calls
-  const maxDistRef = useRef(0);
 
   const [fontSize, setFontSize] = useState(minFontSize);
   const [scaleY, setScaleY] = useState(1);
@@ -76,34 +72,18 @@ const TextPressure: React.FC<TextPressureProps> = ({
   const chars = text.split('');
 
   useEffect(() => {
-    const container = containerRef.current;
-    if(!container) return;
-
     const handleMouseMove = (e: MouseEvent) => {
-      const rect = container.getBoundingClientRect();
-      // Relative mouse position from the viewport is fine since dist checks global proximity?
-      // Actually dist is between mouseRef and charCenter. 
-      // charCenter was derived from getBoundingClientRect() which is viewport-relative.
-      // So e.clientX/Y (viewport relative) is correct.
       cursorRef.current.x = e.clientX;
       cursorRef.current.y = e.clientY;
     };
     const handleTouchMove = (e: TouchEvent) => {
       const t = e.touches[0];
-      const rect = container.getBoundingClientRect();
       cursorRef.current.x = t.clientX;
       cursorRef.current.y = t.clientY;
     };
-    
-    // Reset cursor when leaving the component to avoid "stuck" effect
-    const handleMouseLeave = () => {
-        cursorRef.current.x = -9999;
-        cursorRef.current.y = -9999;
-    };
 
-    container.addEventListener('mousemove', handleMouseMove);
-    container.addEventListener('touchmove', handleTouchMove, { passive: true } as EventListenerOptions);
-    container.addEventListener('mouseleave', handleMouseLeave);
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
 
     if (containerRef.current) {
       const { left, top, width, height } = containerRef.current.getBoundingClientRect();
@@ -114,9 +94,8 @@ const TextPressure: React.FC<TextPressureProps> = ({
     }
 
     return () => {
-      container.removeEventListener('mousemove', handleMouseMove);
-      container.removeEventListener('touchmove', handleTouchMove);
-      container.removeEventListener('mouseleave', handleMouseLeave);
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('touchmove', handleTouchMove);
     };
   }, []);
 
@@ -134,75 +113,48 @@ const TextPressure: React.FC<TextPressureProps> = ({
 
     requestAnimationFrame(() => {
       if (!titleRef.current) return;
-    const textRect = titleRef.current.getBoundingClientRect();
-    maxDistRef.current = textRect.width / 2;
+      const textRect = titleRef.current.getBoundingClientRect();
 
-    if (scale && textRect.height > 0) {
-      const yRatio = containerH / textRect.height;
-      setScaleY(yRatio);
-      setLineHeight(yRatio);
-    }
-    
-    // Cache span positions after layout update
-    setTimeout(() => {
-       if(!spansRef.current) return;
-       spansRef.current.forEach((span) => {
-          if(!span) return;
-          const rect = span.getBoundingClientRect();
-          span.dataset.centerX = (rect.x + rect.width / 2).toString();
-          span.dataset.centerY = (rect.y + rect.height / 2).toString();
-       });
-    }, 0);
-  });
+      if (scale && textRect.height > 0) {
+        const yRatio = containerH / textRect.height;
+        setScaleY(yRatio);
+        setLineHeight(yRatio);
+      }
+    });
   }, [chars.length, minFontSize, scale]);
 
   useEffect(() => {
-    setSize();
     const debouncedSetSize = debounce(setSize, 100);
+    debouncedSetSize();
     window.addEventListener('resize', debouncedSetSize);
     return () => window.removeEventListener('resize', debouncedSetSize);
   }, [setSize]);
 
   useEffect(() => {
     let rafId: number;
-    let isRunning = false;
-
     const animate = () => {
-      if (!isRunning) return;
-
       mouseRef.current.x += (cursorRef.current.x - mouseRef.current.x) / 15;
       mouseRef.current.y += (cursorRef.current.y - mouseRef.current.y) / 15;
 
       if (titleRef.current) {
-        // Use cached maxDist to avoid forced reflow
-        let maxDist = maxDistRef.current;
-        if (maxDist === 0) {
-           const rect = titleRef.current.getBoundingClientRect();
-           maxDist = rect.width / 2;
-           maxDistRef.current = maxDist;
-        }
+        const titleRect = titleRef.current.getBoundingClientRect();
+        const maxDist = titleRect.width / 2;
 
         spansRef.current.forEach(span => {
           if (!span) return;
 
-          // Read from data attributes instead of forcing reflow
-          // Fallback to rect if not set (first frame)
-          let centerX = parseFloat(span.dataset.centerX || "0");
-          let centerY = parseFloat(span.dataset.centerY || "0");
-          
-          if (centerX === 0 && centerY === 0) {
-              const rect = span.getBoundingClientRect();
-              centerX = rect.x + rect.width / 2;
-              centerY = rect.y + rect.height / 2;
-          }
+          const rect = span.getBoundingClientRect();
+          const charCenter = {
+            x: rect.x + rect.width / 2,
+            y: rect.y + rect.height / 2
+          };
 
-          const charCenter = { x: centerX, y: centerY };
           const d = dist(mouseRef.current, charCenter);
 
           const wdth = width ? Math.floor(getAttr(d, maxDist, 5, 200)) : 100;
           const wght = weight ? Math.floor(getAttr(d, maxDist, 100, 900)) : 400;
-          const italVal = italic ? getAttr(d, maxDist, 0, 1).toFixed(2) : 0;
-          const alphaVal = alpha ? getAttr(d, maxDist, 0, 1).toFixed(2) : "1";
+          const italVal = italic ? getAttr(d, maxDist, 0, 1).toFixed(2) : '0';
+          const alphaVal = alpha ? getAttr(d, maxDist, 0, 1).toFixed(2) : '1';
 
           const newFontVariationSettings = `'wght' ${wght}, 'wdth' ${wdth}, 'ital' ${italVal}`;
 
@@ -218,113 +170,63 @@ const TextPressure: React.FC<TextPressureProps> = ({
       rafId = requestAnimationFrame(animate);
     };
 
-    const observer = new IntersectionObserver(([entry]) => {
-        if(entry.isIntersecting) {
-            if (!isRunning) {
-                isRunning = true;
-                animate();
-            }
-        } else {
-            isRunning = false;
-            cancelAnimationFrame(rafId);
-        }
-    }, { threshold: 0 });
-
-    if (containerRef.current) {
-        observer.observe(containerRef.current);
-    }
-
-    return () => {
-        isRunning = false;
-        observer.disconnect();
-        cancelAnimationFrame(rafId);
-    };
+    animate();
+    return () => cancelAnimationFrame(rafId);
   }, [width, weight, italic, alpha]);
 
   const styleElement = useMemo(() => {
     return (
-      <style
-        dangerouslySetInnerHTML={{
-          __html: `
+      <style>{`
         @font-face {
           font-family: '${fontFamily}';
           src: url('${fontUrl}');
           font-style: normal;
-          font-display: swap;
         }
-
-        .tp-flex {
-          display: flex;
-          justify-content: space-between;
-        }
-
-        .tp-stroke span {
+        .stroke span {
           position: relative;
           color: ${textColor};
         }
-        .tp-stroke span::after {
+        .stroke span::after {
           content: attr(data-char);
           position: absolute;
           left: 0;
           top: 0;
           color: transparent;
           z-index: -1;
-          -webkit-text-stroke-width: 3px;
+          -webkit-text-stroke-width: ${strokeWidth}px;
           -webkit-text-stroke-color: ${strokeColor};
         }
-
-        .text-pressure-title {
-          color: ${textColor};
-        }
-      `,
-        }}
-      />
+      `}</style>
     );
-  }, [fontFamily, fontUrl, textColor, strokeColor]);
-
-  const dynamicClassName = [className, flex ? 'tp-flex' : '', stroke ? 'tp-stroke' : ''].filter(Boolean).join(' ');
+  }, [fontFamily, fontUrl, textColor, strokeColor, strokeWidth]);
 
   return (
-    <div
-      ref={containerRef}
-      style={{
-        position: 'relative',
-        width: '100%',
-        height: '100%',
-        background: 'transparent',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
-    >
+    <div ref={containerRef} className="relative w-full h-full overflow-hidden bg-transparent flex items-center justify-center">
       {styleElement}
       <h1
         ref={titleRef}
-        className={`text-pressure-title ${dynamicClassName}`}
+        className={`text-pressure-title ${className} ${
+          flex ? 'flex justify-between' : ''
+        } ${stroke ? 'stroke' : ''} uppercase text-center`}
         style={{
           fontFamily,
-          textTransform: 'uppercase',
           fontSize: fontSize,
           lineHeight,
           transform: `scale(1, ${scaleY})`,
-          transformOrigin: 'center center',
+          transformOrigin: 'center top',
           margin: 0,
-          textAlign: 'center',
-          userSelect: 'none',
-          whiteSpace: 'nowrap',
           fontWeight: 100,
-          width: '100%'
+          color: stroke ? undefined : textColor
         }}
       >
         {chars.map((char, i) => (
           <span
             key={i}
-            ref={el => { spansRef.current[i] = el; }}
-            data-char={char}
-            style={{
-              display: 'inline-block',
-              color: stroke ? undefined : textColor
+            ref={el => {
+              spansRef.current[i] = el;
             }}
+            data-char={char}
+            className="inline-block"
           >
             {char}
           </span>
