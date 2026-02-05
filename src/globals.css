@@ -3,8 +3,6 @@
 @tailwind utilities;
 
 :root {
-  --background: 0 0% 100%;
-  --foreground: 222.2 84% 4.9%;
   --card: 0 0% 100%;
   --card-foreground: 222.2 84% 4.9%;
   --popover: 0 0% 100%;
@@ -26,7 +24,7 @@
 }
 
 .dark {
-  --background: 222.2 84% 4.9%;
+  --background: 0 0% 5.1%;
   --foreground: 210 40% 98%;
   --card: 222.2 84% 4.9%;
   --card-foreground: 210 40% 98%;
@@ -59,6 +57,7 @@ body {
 html {
   scroll-padding-top: 2rem;
   scrollbar-gutter: stable;
+  overscroll-behavior: none;
 }
 
 /* Custom scrollbar - hidden */
@@ -86,39 +85,21 @@ pre {
 
 /* Simple styling for clean portfolio */
 html {
-  transition: background-color 0.3s ease;
-}
-
-html.dark {
-  background-color: #000000;
-}
-
-html:not(.dark) {
-  background-color: #ffffff;
+  /* Background managed in page component */
 }
 
 body {
-  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  zoom: 90%;
+  transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   min-height: 100vh;
+  overscroll-behavior-y: none;
+  zoom: 90%;
+  background-color: transparent;
+  color: hsl(var(--foreground));
 }
 
-/* Keep bottom navbar at normal size */
+/* Remove unused matrix background */
 #contact {
-  zoom: 111.11%;
   /* 1 / 0.9 to counteract body zoom */
-}
-
-/* Light theme specific styles */
-body:not(.dark) {
-  background-color: #ffffff;
-  color: #000000;
-}
-
-/* Dark theme specific styles */
-body.dark {
-  background-color: #000000;
-  color: #ffffff;
 }
 
 h1,
@@ -127,13 +108,7 @@ h3 {
   font-weight: 700;
 }
 
-/* Matrix-like grid background */
-.matrix-bg {
-  background-image:
-    linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
-  background-size: 20px 20px;
-}
+/* Matrix-like grid background - Removed */
 
 /* Hover effects with smooth transitions */
 .hover-glow:hover {
@@ -154,4 +129,109 @@ h3 {
   will-change: transform, opacity;
   backface-visibility: hidden;
   perspective: 1000px;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Custom Scrollbar for Contribution Graph */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+.dark .custom-scrollbar {
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  height: 6px;
+  -webkit-appearance: none;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 9999px;
+  border: 2px solid transparent;            /* Padding around thumb */
+  background-clip: content-box;             /* Makes the thumb smaller */
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+/* Custom selection styles */
+::selection {
+  background-color: #252525 !important;
+  color: #ffffff !important;
+}
+
+::-moz-selection {
+  background-color: #252525 !important;
+  color: #ffffff !important;
 }

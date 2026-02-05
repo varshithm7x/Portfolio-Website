@@ -5,6 +5,15 @@ import { Trophy, Award, Calendar } from "lucide-react"
 export default function Achievements() {
   const achievements = [
     {
+      title: "AI Impact Summit '26",
+      award: "2nd Prize - AI in Education",
+      project: "Espadas AI",
+      description: "Intelligent interview preparation platform featuring real-time voice interviews, AI feedback, and dynamic question generation.",
+      date: "January 2026",
+      link: "https://www.linkedin.com/posts/mvarshith_runner-up-at-ai-summit-26-won-another-hackathon-activity-7422842231486664704-M9jz?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFDlMHcB0GkhhOTLFDirjNqXAO0PSJjE1FY",
+      tech: "Next.js, Vapi AI, Firebase"
+    },
+    {
       title: "HACKHAZARDS '25",
       award: "2nd Prize - Monad Track",
       project: "Ball-Maze with NFT Integration",
@@ -15,10 +24,10 @@ export default function Achievements() {
     }
   ]
   return (
-    <section id="achievements" className="py-4 px-6 bg-white dark:bg-black transition-colors duration-300">
-      <div className="max-w-4xl mx-auto"><h2 className="text-2xl font-bold mb-6 text-black dark:text-white transition-colors duration-300 flex items-center gap-2">
+    <section id="achievements" className="py-20 px-6 md:px-12 transition-colors duration-300">
+      <div className="max-w-[52rem] mx-auto">
+        <h2 className="text-2xl font-bold mb-8 text-neutral-800 dark:text-neutral-200 flex items-center gap-2 underline underline-offset-4 decoration-2 decoration-neutral-400 dark:decoration-neutral-600">
         Achievements
-        <Trophy className="w-6 h-6 text-yellow-500" />
       </h2>
 
         <div className="space-y-6">

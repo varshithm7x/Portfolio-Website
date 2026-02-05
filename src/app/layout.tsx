@@ -18,9 +18,31 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">      <body className={`${inter.className} overflow-x-hidden transition-colors duration-300`}>
-      <ThemeProvider>
-        <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white transition-colors duration-300">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://res.cloudinary.com" />
+        <link rel="preconnect" href="https://github-contributions-api.jogruber.de" />
+      </head>
+      <body className={`${inter.className} overflow-x-hidden transition-colors duration-300`} suppressHydrationWarning>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var localTheme = localStorage.getItem('theme');
+                  var supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                  if (localTheme === 'dark' || (!localTheme && true)) { // Default to dark if no preference
+                    document.documentElement.classList.add('dark');
+                  } else {
+                    document.documentElement.classList.remove('dark');
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+        <ThemeProvider>
+        <div className="min-h-screen text-black dark:text-white transition-colors duration-300">
           {children}
         </div>
       </ThemeProvider>
