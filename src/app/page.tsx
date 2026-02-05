@@ -23,7 +23,7 @@ export default function HomePage() {
            color={theme === 'dark' ? '#ffffff' : 'blue'}
            pixelSizeJitter={0.35}
            patternScale={3.75}
-           patternDensity={0.80}
+           patternDensity={0.75}
            speed={2}
            edgeFade={0.2}
            enableRipples={true}

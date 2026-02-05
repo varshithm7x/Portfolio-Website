@@ -113,12 +113,12 @@ export default function Projects() {
                    <span>{item.title}</span>
                    <div className="flex items-center gap-3">
                       {item.repo && (
-                        <a href={item.repo} target="_blank" rel="noreferrer" className="text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors">
+                        <a href={item.repo} target="_blank" rel="noreferrer" className="text-neutral-700 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors">
                           <Github className="w-5 h-5" />
                         </a>
                       )}
                       {item.link && (
-                         <a href={item.link} target="_blank" rel="noreferrer" className="text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors">
+                         <a href={item.link} target="_blank" rel="noreferrer" className="text-neutral-700 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors">
                           <LinkIcon className="w-5 h-5" />
                         </a>
                       )}
@@ -127,7 +127,7 @@ export default function Projects() {
               }
               description={
                 <div className="flex flex-col gap-2">
-                  <span className="text-sm text-neutral-500">{item.description}</span>
+                  <span className="text-sm text-neutral-700 dark:text-neutral-400">{item.description}</span>
                 </div>
               }
               header={item.header}
